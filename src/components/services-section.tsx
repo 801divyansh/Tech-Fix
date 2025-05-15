@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { 
   Cpu, 
   HardDrive, 
-  Gamepad2, 
-  MonitorSmartphone, 
+  Gamepad2,  
   Download, 
   MonitorDown,
   ArrowRight
