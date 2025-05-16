@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
+import { useUser, SignInButton } from '@clerk/clerk-react'; // Import SignInButton from Clerk
 import { 
   Cpu, 
   HardDrive, 
@@ -17,6 +19,7 @@ interface Service {
   description: string;
   icon: React.ReactNode;
   color: string;
+  route: string; // Add a route property for navigation
 }
 
 const services: Service[] = [
@@ -26,6 +29,7 @@ const services: Service[] = [
     description: "Professional thermal paste replacement and cleaning service to keep your console running cool and quiet.",
     icon: <Gamepad2 size={24} />,
     color: "from-blue-500 to-blue-700",
+    route: "/services/console-cleanup", // Route for Console Service
   },
   {
     id: 2,
@@ -33,6 +37,7 @@ const services: Service[] = [
     description: "Remote or physical software installation services for all your computing needs.",
     icon: <Download size={24} />,
     color: "from-purple-500 to-purple-700",
+    route: "/services/software_service", // Route for Software Service
   },
   {
     id: 3,
@@ -40,6 +45,7 @@ const services: Service[] = [
     description: "Access to a wide range of cracked software for Windows and Mac systems.",
     icon: <MonitorDown size={24} />,
     color: "from-green-500 to-green-700",
+    route: "/services/software_service", // Route for Software Collection
   },
   {
     id: 4,
@@ -47,6 +53,7 @@ const services: Service[] = [
     description: "Get the latest PC and console games with easy installation and setup guidance.",
     icon: <Gamepad2 size={24} />,
     color: "from-amber-500 to-amber-700",
+    route: "/services/pc_service", // Route for Games
   },
   {
     id: 5,
@@ -54,6 +61,7 @@ const services: Service[] = [
     description: "Professional SSD and RAM upgrades to boost your computer's performance.",
     icon: <Cpu size={24} />,
     color: "from-red-500 to-red-700",
+    route: "/services/laptop_service", // Route for Hardware Upgrades
   },
   {
     id: 6,
@@ -61,11 +69,14 @@ const services: Service[] = [
     description: "Expand your console's storage capacity with professional installation services.",
     icon: <HardDrive size={24} />,
     color: "from-teal-500 to-teal-700",
+    route: "/services/console-cleanup", // Route for Console Storage Upgrades
   },
 ];
 
 const ServicesSection = () => {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
+  const navigate = useNavigate();
+  const { isSignedIn } = useUser(); // Get the user's sign-in status
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -80,6 +91,12 @@ const ServicesSection = () => {
   const serviceVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
+
+  const handleServiceClick = (route: string) => {
+    if (isSignedIn) {
+      navigate(route); // Navigate to the service route if signed in
+    }
   };
 
   return (
@@ -159,18 +176,34 @@ const ServicesSection = () => {
                 </ul>
               </CardContent>
               <CardFooter>
-                <Button 
-                  className={`w-full bg-gradient-to-r ${service.color} text-white`}
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  Get Service
-                  <motion.div
-                    animate={{ x: hoveredId === service.id ? 5 : 0 }}
-                    transition={{ duration: 0.2 }}
+                {isSignedIn ? (
+                  <Button 
+                    className={`w-full bg-gradient-to-r ${service.color} text-white`}
+                    onClick={() => handleServiceClick(service.route)} // Navigate if signed in
                   >
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </motion.div>
-                </Button>
+                    Get Service
+                    <motion.div
+                      animate={{ x: hoveredId === service.id ? 5 : 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </motion.div>
+                  </Button>
+                ) : (
+                  <SignInButton mode="modal">
+                    <Button 
+                      className={`w-full bg-gradient-to-r ${service.color} text-white`}
+                    >
+                      Sign In to Get Service
+                      <motion.div
+                        animate={{ x: hoveredId === service.id ? 5 : 0 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </motion.div>
+                    </Button>
+                  </SignInButton>
+                )}
               </CardFooter>
             </Card>
           </motion.div>

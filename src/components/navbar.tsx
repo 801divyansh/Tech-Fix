@@ -6,6 +6,7 @@ import { cn } from '@/lib/utils';
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/clerk-react';
 import { motion } from 'framer-motion';
 
+
 const NavBar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { isSignedIn } = useUser();
