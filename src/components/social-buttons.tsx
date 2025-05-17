@@ -17,7 +17,7 @@ const SocialButtons = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <a href="https://wa.me/1234567890" target="_blank" rel="noopener noreferrer">
+            <a href="https://wa.me/9109524301" target="_blank" rel="noopener noreferrer">
               <Button size="icon" className="rounded-full h-12 w-12 bg-[#25D366] hover:bg-[#128C7E] text-white">
                 <MessageCircle className="h-5 w-5" />
               </Button>
@@ -32,7 +32,7 @@ const SocialButtons = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <a href="https://t.me/yourusername" target="_blank" rel="noopener noreferrer">
+            <a href="https://t.me/TechFix_Service" target="_blank" rel="noopener noreferrer">
               <Button size="icon" className="rounded-full h-12 w-12 bg-[#0088cc] hover:bg-[#0077b5] text-white">
                 <Send className="h-5 w-5" />
               </Button>

@@ -9,6 +9,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Phone, MapPin } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
 const formSchema = z.object({
   name: z.string().min(2, { message: 'Name must be at least 2 characters.' }),
@@ -16,6 +17,8 @@ const formSchema = z.object({
   phone: z.string().min(10, { message: 'Please enter a valid phone number.' }),
   message: z.string().min(10, { message: 'Message must be at least 10 characters.' }),
 });
+
+
 
 const ContactSection = () => {
   const { toast } = useToast();
@@ -30,13 +33,32 @@ const ContactSection = () => {
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    toast({
-      title: "Message Sent!",
-      description: "We'll get back to you as soon as possible.",
-    });
-    form.reset();
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      // Fetch EmailJS configuration from environment variables
+      const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+      const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+      const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+
+      if (!serviceId || !templateId || !userId) {
+        throw new Error('EmailJS configuration is missing in the environment variables.');
+      }
+
+      await emailjs.send(serviceId, templateId, values, userId);
+
+      toast({
+        title: 'Message Sent!',
+        description: "We'll get back to you as soon as possible.",
+      });
+      form.reset();
+    } catch (error) {
+      console.error('EmailJS Error:', error);
+      toast({
+        title: 'Error',
+        description: 'Failed to send the message. Please try again later.',
+        variant: 'destructive',
+      });
+    }
   }
 
   return (
@@ -157,7 +179,7 @@ const ContactSection = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Email</h3>
-                  <p className="text-gray-600 dark:text-gray-400">support@techfix.com</p>
+                  <p className="text-gray-600 dark:text-gray-400">techFix.servicez@gmail.com</p>
                  
                 </div>
               </div>
@@ -168,7 +190,7 @@ const ContactSection = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Phone</h3>
-                  <p className="text-gray-600 dark:text-gray-400">+91 125678922</p>
+                  <p className="text-gray-600 dark:text-gray-400">+91 9109524301</p>
                  
                 </div>
               </div>
@@ -180,8 +202,8 @@ const ContactSection = () => {
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">Location</h3>
                   <p className="text-gray-600 dark:text-gray-400">
-                    123 Tech Street, Digital City
-                    Silicon Valley, CA 94025
+                    Morar, Gwalior,
+                    Madhya Pradesh, 474006
                   </p>
                 </div>
               </div>
