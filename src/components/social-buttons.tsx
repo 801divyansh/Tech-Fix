@@ -6,6 +6,8 @@ import {
 } from 'lucide-react';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 
+const WHATSAPP_PHONE = import.meta.env.VITE_WHATSAPP_PHONE;
+
 const SocialButtons = () => {
   return (
     <motion.div
@@ -17,11 +19,16 @@ const SocialButtons = () => {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <a href="https://wa.me/9109524301" target="_blank" rel="noopener noreferrer">
-              <Button size="icon" className="rounded-full h-12 w-12 bg-[#25D366] hover:bg-[#128C7E] text-white">
+              <Button size="icon" 
+                onClick={() => {
+                  const message = encodeURIComponent("Hello, I would like to book a service."); // Pre-filled message
+                  const whatsappUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${message}`;
+                  window.open(whatsappUrl, "_blank"); // Open WhatsApp in a new tab
+                }} 
+                className="rounded-full h-12 w-12 bg-[#25D366] hover:bg-[#128C7E] text-white">
                 <MessageCircle className="h-5 w-5" />
               </Button>
-            </a>
+            
           </TooltipTrigger>
           <TooltipContent>
             <p>Chat on WhatsApp</p>

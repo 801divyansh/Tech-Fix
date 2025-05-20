@@ -7,6 +7,10 @@ const HeroSection = () => {
     document.getElementById('services')?.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const scrollToContact = () => {
+    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+  }
+
   return (
     <section className="relative pt-20 pb-24 overflow-hidden">
       {/* Animated Background Gradient */}
@@ -60,14 +64,14 @@ const HeroSection = () => {
           <Button
             size="lg"
             variant="outline"
-            onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            onClick={scrollToContact}
           >
             Contact Us
           </Button>
         </motion.div>
 
         <motion.div
-          className="absolute bottom-2 left-0 right-0 flex justify-center"
+          className="bottom-1 left-0 right-0 flex justify-center"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 1, duration: 0.5 }}

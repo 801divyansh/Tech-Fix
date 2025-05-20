@@ -63,7 +63,7 @@ const NavBar = () => {
                 <Button variant="outline" size="sm" className="mr-2">Sign In</Button>
               </SignInButton>
             )}
-            <Button variant="ghost" onClick={toggleMenu} className="ml-2">
+            <Button variant="ghost" onClick={toggleMenu} className="p-1 ml-2">
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </Button>
           </div>
