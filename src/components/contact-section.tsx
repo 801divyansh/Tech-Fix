@@ -60,10 +60,10 @@ const ContactSection = () => {
   }
 
   return (
-    <section id="contact" className="py-20 flex items-center justify-center min-h-screen">
+    <section id="contact" className="py-10 mb-10 flex items-center justify-center min-h-screen">
       <div className="max-w-3xl w-full">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold mb-4">Contact Us</h2>
+          <h2 className="text-4xl font-bold mb-4">Contact Us</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Get in touch with our team for personalized tech services and solutions
           </p>

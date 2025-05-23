@@ -6,6 +6,7 @@ import ContactSection from '@/components/contact-section';
 import BackgroundBubbles from '@/components/background-bubbles';
 import SocialButtons from '@/components/social-buttons';
 import AboutSection from './about-section';
+import WhyUs from './why_us';
 
 const Layout = () => {
   return (
@@ -16,6 +17,7 @@ const Layout = () => {
         <HeroSection />
         <ServicesSection />
         <AboutSection />
+        <WhyUs />
         <ContactSection />
       </main>
       <SocialButtons />

@@ -104,7 +104,7 @@ const ServicesSection = () => {
   }, []);
 
   return (
-    <section id="services" className="py-20 px-4 sm:px-6 lg:px-8">
+    <section id="services" className="py-20 px-4 mb-10 sm:px-6 lg:px-8">
       <div className="text-center mb-16">
         <h2 className="text-4xl font-bold mb-4">Our Services</h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
@@ -119,12 +119,15 @@ const ServicesSection = () => {
       >
         <CarouselContent className="flex">
           {services.map((service) => (
-            <CarouselItem key={service.id} className="basis-full md:basis-1/2 lg:basis-1/3 px-4">
-              <Card
-                className="h-full flex flex-col hover:shadow-pink-400 shadow-lg transition-shadow duration-300"
+            <CarouselItem key={service.id} className="basis-full md:basis-1/2 lg:basis-1/3 px-6 py-10">
+              <motion.div
+                className="flex flex-col rounded-xl hover:shadow-pink-400 shadow-lg transition-shadow duration-300"
                 onMouseEnter={() => setHoveredId(service.id)}
                 onMouseLeave={() => setHoveredId(null)}
+                whileHover={{ scale: 1.05, y: -10 }} 
+                transition={{ type: "spring", stiffness: 300, damping: 20 }} 
               >
+                <Card>
                 <CardHeader>
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center bg-gradient-to-r ${service.color} text-white mb-4`}
@@ -235,6 +238,7 @@ const ServicesSection = () => {
                   )}
                 </CardFooter>
               </Card>
+              </motion.div>
             </CarouselItem>
           ))}
         </CarouselContent>
